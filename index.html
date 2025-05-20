@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentor Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #3b82f6, #1e3a8a);
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #1e40af;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #1e3a8a;
+    }
+    nav button {
+      background: #60a5fa;
+      color: #1e3a8a;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    section {
+      display: none;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    section.active {
+      display: block;
+    }
+    .mentor-card {
+      background: #2563eb;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    input {
+      width: 100%;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      padding: 20px;
+      background: #1e40af;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mentor Hub</h1>
+    <p>Encuentra mentores certificados y aprende nuevas habilidades</p>
+  </header>
+
+  <nav>
+    <button onclick="showSection('login')">Iniciar Sesión / Crear Cuenta</button>
+    <button onclick="showSection('mentors')">Mentores</button>
+    <button onclick="showSection('empresa')">Sobre Nosotros</button>
+  </nav>
+
+  <section id="login" class="active">
+    <h2>Iniciar Sesión</h2>
+    <input type="email" placeholder="Correo electrónico" />
+    <input type="password" placeholder="Contraseña" />
+    <button>Entrar</button>
+    <h2>Crear Cuenta</h2>
+    <input type="text" placeholder="Nombre completo" />
+    <input type="email" placeholder="Correo electrónico" />
+    <input type="password" placeholder="Crear contraseña" />
+    <button>Registrarse</button>
+  </section>
+
+  <section id="mentors">
+    <h2>Mentores Disponibles</h2>
+    <input type="text" id="searchBox" placeholder="Buscar mentor..." oninput="filterMentors()" />
+    <div id="mentorList"></div>
+  </section>
+
+  <section id="empresa">
+    <h2>¿Quiénes Somos?</h2>
+    <p>En Mentor Hub conectamos estudiantes con mentores certificados en habilidades clave como programación, diseño, música y más.</p>
+    <h3>Misión</h3>
+    <p>Conectar personas con mentores calificados en un entorno seguro y accesible.</p>
+    <h3>Visión</h3>
+    <p>Ser la plataforma líder de mentoría en Latinoamérica.</p>
+    <h3>Certificación</h3>
+    <p>Todos nuestros mentores son verificados y el sitio cuenta con cifrado SSL.</p>
+  </section>
+
+  <footer>
+    <p>"El aprendizaje es el arma más poderosa para cambiar el mundo." – Mentor Hub</p>
+    <p>© 2025 Mentor Hub. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const mentors = [
+      { name: "Ana López", skill: "🎨 Diseño Gráfico", desc: "Especialista en Photoshop y branding." },
+      { name: "Carlos Méndez", skill: "💻 Programación Web", desc: "Full Stack con 10+ años de experiencia." },
+      { name: "Laura Torres", skill: "🎹 Música (Piano)", desc: "Experta en técnica clásica y jazz." },
+      { name: "María Gómez", skill: "🗣️ Inglés Conversacional", desc: "Profesora nativa con enfoque práctico." },
+      { name: "Luis Fernández", skill: "📸 Fotografía", desc: "Fotógrafo profesional especializado en retratos." },
+      { name: "Paola Jiménez", skill: "📊 Finanzas Personales", desc: "Mentora en ahorro e inversiones." },
+    ];
+
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function filterMentors() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const filtered = mentors.filter(m => m.name.toLowerCase().includes(query) || m.skill.toLowerCase().includes(query));
+      renderMentors(filtered);
+    }
+
+    function renderMentors(list) {
+      const container = document.getElementById("mentorList");
+      container.innerHTML = "";
+      list.forEach(m => {
+        container.innerHTML += `
+          <div class="mentor-card">
+            <h3>${m.name}</h3>
+            <p>${m.skill}</p>
+            <p>${m.desc}</p>
+            <button>Ver Perfil</button>
+          </div>
+        `;
+      });
+    }
+
+    // Render full list at start
+    renderMentors(mentors);
+  </script>
+
+</body>
+</html>
